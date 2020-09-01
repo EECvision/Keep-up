@@ -1,13 +1,41 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body{
+  background-color: rgb(208, 220, 230);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.task-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  border: 1px solid red;
+  width: 60vw;
+  height: auto;
 }
+
+.task-name{
+  text-align: center;
+  font-size: 2.5rem;
+box-shadow: white;
+  height: 80px;
+  border: 1px solid red;
+  margin: 10px;
+}
+
+.task-button{
+  text-align: center;
+  height: 50px;
+  border: 1px solid red;
+}
+
+.form-container{
+  position: absolute;
+  background-color: burlywood;
+  
+}
+
+
+
+
