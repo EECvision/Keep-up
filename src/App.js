@@ -88,7 +88,7 @@ export default function App(){
   useEffect(()=>{
     const id = setInterval(() => {
       const updatedTasks = tasks.map(task=>{
-       let duePeriod = dateDiff(userDueDate(task.time),currentTimeZone(new Date()),task.date)
+        let duePeriod = dateDiff(userDate(task.date,task.time),currentDate());
        task = {...task,period:duePeriod}
        return task;
       })
@@ -119,11 +119,9 @@ export default function App(){
 
   const taskList= tasks.map((task)=>(
     <Task
+    id = {task.id}
     key={task.id}
-    id={task.id}
     name={task.name}
-    time={task.time}
-    date={task.date}
     period={task.period}
     manageTask={manageTask}
     />
@@ -152,50 +150,29 @@ export default function App(){
 
 // ----------------------------------------------------------------------
 
-function userDueDate(userTime){
-  userTime=userTime.split(':');
-  let [hour,minute,second] = userTime
-  hour = parseInt(hour);
-  minute = parseInt(minute);
-  second = parseInt(second);
-  return [hour,minute,second]
+function userDate(date,time){
+  let fullDate = [date,time]
+                .join(' ').split('-')
+                .join(' ').split(':')
+                .join(' ').split(' ');
+  return new Date(...fullDate)
 }
 
-function currentTimeZone(currentZone){
-  let currentTime = currentZone.toTimeString().split(':').join(' ').split(' ')
-  let [hour,minute,second] = currentTime;
-  hour = parseInt(hour);
-  minute = parseInt(minute)
-  second = parseInt(second)
-  return [hour,minute,second]
+function currentDate(){
+  return new Date();
+}
+
+function dateDiff(userDate,currentDate){
+  let timeDiff = userDate.getTime() - currentDate.getTime(); 
+  let days = Math.trunc((timeDiff / 86400000)-30);
+  let hours = Math.trunc((timeDiff % 86400000) /  3600000);
+  let mins = Math.trunc(((timeDiff % 86400000) % 3600000) / 60000);
+  let secs = Math.trunc((((timeDiff % 86400000) % 3600000) % 60000) / 1000);
+
+  return [days, hours, mins, secs];
 }
 
 
-function dateDiff(userInput,currentInput,userDate){
-  let user = userDate.split('-');
-  let date = new Date();
-  let current = date.toLocaleDateString();
-  let [y,m,d] = user;
-  user = [m,d,y];
-  user=user.join('/');
-  let date1 = new Date(current); 
-  let date2 = new Date(user) 
-  let Difference_In_Time = date2.getTime() - date1.getTime(); 
-  let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-  let currentInputInSec = ((currentInput[0]*3600)+(currentInput[1]*60)+(currentInput[2]))
-  let userInputInSec = 
-      userInput[0] >= currentInput[0] ? 
-      ((userInput[0]*3600)+(userInput[1]*60)+(userInput[2])) :
-      (((userInput[0]+24)*3600)+(userInput[1]*60)+(userInput[1]));
-  let currentTimeInSec = userInputInSec-currentInputInSec;
-  let hr = Math.trunc(currentTimeInSec / 3660);
-  let min = Math.trunc((currentTimeInSec%3600)/60);
-  let sec = (currentTimeInSec%3600)%60;
-  if (hr > 24){
-      Difference_In_Days -=1;
-  }
-  return [Difference_In_Days,hr,min,sec];
-}
 
 
 
