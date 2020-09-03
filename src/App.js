@@ -180,7 +180,7 @@ function currentDate(){
 function dateDiff(userDate,currentDate){
   let timeDiff = userDate.getTime() - currentDate.getTime(); 
   if(timeDiff < 0){
-    alert('Invalid Time Input')
+    // alert('Invalid Time Input')
     return [0,0,0,0];
   }
   let days = Math.trunc((timeDiff / 86400000));
