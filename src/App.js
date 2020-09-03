@@ -9,8 +9,11 @@ export default function App(){
   const [tasks,setTasks] = useState([]);
   const [time,setTime] = useState('');
   const [date,setDate] = useState('');
-  const [name,setName] = useState('');
+  const [name,setName] = useState('learn git');
   const [id,setId] = useState(Date.now());
+
+
+
 
 
 
@@ -32,35 +35,43 @@ export default function App(){
   }
 
   const saveTask=(id,name,time,date)=>{
-    const newTask = {
-      id:id,
-      name:name,
-      date:date,
-      time:time,
-      period:[]
-    }
-
-    if(formStatus){
-      setTasks([...tasks,newTask])
-    } else{
-        const managedTask = tasks.map(task=>{
-          if(task.id===id){
-            task =  {...task,...newTask}
-          }
-          return task
-        })
-        setTasks(managedTask)
+    if (id && name && time && date){
+        const newTask = {
+        id:id,
+        name:name,
+        date:date,
+        time:time,
+        period:[]
       }
-    setRenderForm(false)
-    setFormStatus(true)
-    setDate('')
-    setName('')
-    setTime('')
-    setId(Date.now())
+  
+      if(formStatus){
+        setTasks([...tasks,newTask])
+      } else{
+          const managedTask = tasks.map(task=>{
+            if(task.id===id){
+              task =  {...task,...newTask}
+            }
+            return task
+          })
+          setTasks(managedTask)
+        }
+      setRenderForm(false)
+      setFormStatus(true)
+      setDate('')
+      setName('')
+      setTime('')
+      setId(Date.now())
+    }else{
+      cancelTask();
+    }
   }
 
   const cancelTask=()=>{
     setRenderForm(false)
+    setDate('')
+    setName('')
+    setTime('')
+    setId(Date.now())
   }
 
   const deleteTask=(id)=>{
@@ -70,11 +81,13 @@ export default function App(){
     setDate('')
     setName('')
     setTime('')
+    setId(Date.now())
   }
 
   const manageTask=(id)=>{
     tasks.map(task=>{
       if(task.id===id){
+        task.time = task.time.substring(0,5);
         setDate(task.date)
         setName(task.name)
         setTime(task.time)
@@ -155,6 +168,8 @@ function userDate(date,time){
                 .join(' ').split('-')
                 .join(' ').split(':')
                 .join(' ').split(' ');
+    let dateFormat = parseInt(fullDate[1])-1;
+    fullDate.splice(1,1,String(dateFormat));
   return new Date(...fullDate)
 }
 
@@ -164,12 +179,15 @@ function currentDate(){
 
 function dateDiff(userDate,currentDate){
   let timeDiff = userDate.getTime() - currentDate.getTime(); 
-  let days = Math.trunc((timeDiff / 86400000)-30);
+  if(timeDiff < 0){
+    alert('Invalid Time Input')
+    return [0,0,0,0];
+  }
+  let days = Math.trunc((timeDiff / 86400000));
   let hours = Math.trunc((timeDiff % 86400000) /  3600000);
   let mins = Math.trunc(((timeDiff % 86400000) % 3600000) / 60000);
   let secs = Math.trunc((((timeDiff % 86400000) % 3600000) % 60000) / 1000);
-
-  return [days, hours, mins, secs];
+    return [days, hours, mins, secs];
 }
 
 

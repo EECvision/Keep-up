@@ -48,9 +48,7 @@ export default function Form(props){
         let d = new Date();
         d = d.toLocaleTimeString().split(':').join(' ').split(' ')[2];
         time=time+":"+d;
-        props.saveTask(id,name,time,date)
-        // console.log(time);
-
+        props.saveTask(id,name,time,date);
     }
     const cancel=()=>{
         props.cancelTask();
