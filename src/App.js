@@ -1,18 +1,18 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Form from './components/Form.js'
 import Task from './components/Task.js'
-
-
 
 export default function App(){
 
   const [renderForm,setRenderForm] = useState(false);
   const [formStatus,setFormStatus] = useState(true);
   const [tasks,setTasks] = useState([]);
-  const [time,setTime] = useState('time');
-  const [date,setDate] = useState('date');
-  const [name,setName] = useState('name');
-  const [id,setId] = useState(Date.now())
+  const [time,setTime] = useState('');
+  const [date,setDate] = useState('');
+  const [name,setName] = useState('');
+  const [id,setId] = useState(Date.now());
+
+
 
   const showForm=()=>{
     setRenderForm(true)
@@ -36,7 +36,8 @@ export default function App(){
       id:id,
       name:name,
       date:date,
-      time:time
+      time:time,
+      period:[]
     }
 
     if(formStatus){
@@ -80,16 +81,29 @@ export default function App(){
         setId(task.id)
       }return null;
     })
-    // alert(id)
     setRenderForm(true)
     setFormStatus(false)
   }
+
+  useEffect(()=>{
+    const id = setInterval(() => {
+      const updatedTasks = tasks.map(task=>{
+       let duePeriod = dateDiff(userDueDate(task.time),currentTimeZone(new Date()),task.date)
+       task = {...task,period:duePeriod}
+       return task;
+      })
+      
+      setTasks(updatedTasks)
+    }, 1000);
+    return ()=> clearInterval(id);
+  })
+
 
   let form = renderForm
   ?
   <Form 
     status={formStatus} 
-    cancelTask={cancelTask} 
+    cancelTask={cancelTask}
     saveTask={saveTask}
     deleteTask={deleteTask}
     id={id}
@@ -110,6 +124,7 @@ export default function App(){
     name={task.name}
     time={task.time}
     date={task.date}
+    period={task.period}
     manageTask={manageTask}
     />
   ));
@@ -130,5 +145,58 @@ export default function App(){
       </div>
       {taskList}
     </div>
+    
   )
 }
+
+
+// ----------------------------------------------------------------------
+
+function userDueDate(userTime){
+  userTime=userTime.split(':');
+  let [hour,minute,second=0] = userTime
+  hour = parseInt(hour);
+  minute = parseInt(minute)
+  return [hour,minute,second]
+}
+
+function currentTimeZone(currentZone){
+  let currentTime = currentZone.toTimeString().split(':').join(' ').split(' ')
+  let [hour,minute,second] = currentTime;
+  hour = parseInt(hour);
+  minute = parseInt(minute)
+  second = parseInt(second)
+  return [hour,minute,second]
+}
+
+
+function dateDiff(userInput,currentInput,userDate){
+  let user = userDate.split('-');
+  let date = new Date();
+  let current = date.toLocaleDateString();
+  let [y,m,d] = user;
+  user = [m,d,y];
+  user=user.join('/');
+  let date1 = new Date(current); 
+  let date2 = new Date(user) 
+  let Difference_In_Time = date2.getTime() - date1.getTime(); 
+  let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+  let currentInputInMin = (currentInput[0]*60)+(currentInput[1])
+  let userInputInMin = 
+      userInput[0] >= currentInput[0] ? 
+      (userInput[0]*60)+(userInput[1]) :
+      ((userInput[0]+24)*60)+(userInput[1]);
+  let currentTimeInMin = userInputInMin-currentInputInMin;
+  let hr = Math.round(currentTimeInMin / 60);
+  let min = currentTimeInMin % 60;
+  let sec = currentInput[2];
+  if (hr > 12){
+      Difference_In_Days -=1;
+  }
+  return [Difference_In_Days,hr,min,sec]
+}
+
+
+
+
+// ----------------------------------------------------------------------
