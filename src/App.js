@@ -154,9 +154,10 @@ export default function App(){
 
 function userDueDate(userTime){
   userTime=userTime.split(':');
-  let [hour,minute,second=0] = userTime
+  let [hour,minute,second] = userTime
   hour = parseInt(hour);
-  minute = parseInt(minute)
+  minute = parseInt(minute);
+  second = parseInt(second);
   return [hour,minute,second]
 }
 
@@ -181,19 +182,19 @@ function dateDiff(userInput,currentInput,userDate){
   let date2 = new Date(user) 
   let Difference_In_Time = date2.getTime() - date1.getTime(); 
   let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-  let currentInputInMin = (currentInput[0]*60)+(currentInput[1])
-  let userInputInMin = 
+  let currentInputInSec = ((currentInput[0]*3600)+(currentInput[1]*60)+(currentInput[2]))
+  let userInputInSec = 
       userInput[0] >= currentInput[0] ? 
-      (userInput[0]*60)+(userInput[1]) :
-      ((userInput[0]+24)*60)+(userInput[1]);
-  let currentTimeInMin = userInputInMin-currentInputInMin;
-  let hr = Math.round(currentTimeInMin / 60);
-  let min = currentTimeInMin % 60;
-  let sec = currentInput[2];
-  if (hr > 12){
+      ((userInput[0]*3600)+(userInput[1]*60)+(userInput[2])) :
+      (((userInput[0]+24)*3600)+(userInput[1]*60)+(userInput[1]));
+  let currentTimeInSec = userInputInSec-currentInputInSec;
+  let hr = Math.trunc(currentTimeInSec / 3660);
+  let min = Math.trunc((currentTimeInSec%3600)/60);
+  let sec = (currentTimeInSec%3600)%60;
+  if (hr > 24){
       Difference_In_Days -=1;
   }
-  return [Difference_In_Days,hr,min,sec]
+  return [Difference_In_Days,hr,min,sec];
 }
 
 
