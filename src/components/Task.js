@@ -10,27 +10,27 @@ export default function Task(props){
     
     return(
         
-        <div className="task-constainer">
+        <div className="task-list-container">
             
             <div className="event">
                 <div className="event-name">{props.name}</div>
                 <div className="event-time">
-                    <span className="event-item">
-                    <div>{props.period[0]}</div>
-                    <div>DD</div>
-                    </span>
-                    <span className="event-item">
-                    <div>{props.period[1]}</div>
-                    <div>HH</div>
-                    </span>
-                    <span className="event-item">
-                    <div>{props.period[2]}</div>
-                    <div>MM</div>
-                    </span>
-                    <span className="event-item">
-                    <div>{props.period[3]}</div>
-                    <div>SS</div>
-                    </span>
+                    <div className="event-item">
+                        <div>{props.period[0]}</div>
+                        <div>DD</div>
+                    </div>
+                    <div className="event-item">
+                        <div>{props.period[1]}</div>
+                        <div>HH</div>
+                    </div>
+                    <div className="event-item">
+                        <div>{props.period[2]}</div>
+                        <div>MM</div>
+                    </div>
+                    <div className="event-item">
+                        <div>{props.period[3]}</div>
+                        <div>SS</div>
+                    </div>
                 </div>
             </div>
             <div className="button">

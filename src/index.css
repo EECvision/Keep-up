@@ -1,5 +1,4 @@
 body{
-  background-color: rgb(208, 220, 230);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,31 +9,176 @@ body{
   flex-direction: column;
   align-items: center;
   justify-items: center;
-  border: 1px solid red;
   width: 60vw;
   height: auto;
+  background-color: white;
+  border-bottom: 4px solid rgb(42, 36, 65);
+  box-shadow: 2px 2px 3px 3px #9397a7;;
+
 }
 
 .task-name{
-  text-align: center;
-  font-size: 2.5rem;
-box-shadow: white;
+  background-color: rgb(42, 36, 65);
+  color: rgb(199, 198, 214);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 2.2rem ;
+  width: 80%;
   height: 80px;
-  border: 1px solid red;
   margin: 10px;
 }
 
 .task-button{
-  text-align: center;
-  height: 50px;
-  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(93, 88, 112);
+  min-width: 15%;
+  height: 30px;
+  border: 1px solid rgb(83, 83, 97);
+  border-radius: 4px;
+}
+
+button {
+  align-items: center; 
+  min-width: 80px;
+  font-size: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(176, 173, 189);
 }
 
 .form-container{
-  position: absolute;
-  background-color: burlywood;
-  
+  box-sizing: border-box;
+  background-color: whitesmoke;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  border-bottom: 4px solid rgb(42, 36, 65);
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  font-size: 1.2rem;
+  padding: 10px;
+  width: 100%;
+  height: auto;
 }
+
+
+.name-section,.time-section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.button-section{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  flex-flow: wrap;
+  margin-bottom: 10px;
+}
+
+.input-field{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 1.1rem;
+}
+
+label{
+  width: 30%;
+}
+
+input{
+  width: 70%;
+}
+
+.form-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 20px;
+  color: #18181a;
+}
+
+.task-list-container{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 60%;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid rgb(51, 51, 53);
+}
+
+.event{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  margin: 5px 0;
+}
+
+.event-name{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
+  font-size: 1.2rem;
+  overflow: auto;
+}
+
+.event-time{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+}
+
+.event-item{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  width: 30px;
+  border-bottom: 2px solid rgb(42, 36, 65);
+}
+
+@media only screen and (max-width:600px){
+  .task-container{
+    min-width: 300px;
+  }
+  .task-list-container{
+    justify-content: center;
+  }
+
+  .event{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .event-name{
+    width: 100%;
+    justify-content: center;
+  }
+
+  .event-time{
+    width: 100%;
+  }
+}
+
 
 
 

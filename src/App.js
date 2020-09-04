@@ -9,13 +9,8 @@ export default function App(){
   const [tasks,setTasks] = useState([]);
   const [time,setTime] = useState('');
   const [date,setDate] = useState('');
-  const [name,setName] = useState('learn git');
+  const [name,setName] = useState('');
   const [id,setId] = useState(Date.now());
-
-
-
-
-
 
   const showForm=()=>{
     setRenderForm(true)
@@ -143,14 +138,14 @@ export default function App(){
 
   return(
     <div className="task-container">
-      <div className="task-name">
-        Task Manager
-      </div>
-      <div className="task-button">
+      <h1 className="task-name">
+        KEEP-UP 
+      </h1>
+      <h3 className="task-button">
         <button
          type="button"
-         onClick={showForm}>Add Task <span>-:-</span></button>
-      </div>
+         onClick={showForm}>Add New Task</button>
+      </h3>
       <div>
         {form}
       </div>
@@ -180,7 +175,6 @@ function currentDate(){
 function dateDiff(userDate,currentDate){
   let timeDiff = userDate.getTime() - currentDate.getTime(); 
   if(timeDiff < 0){
-    // alert('Invalid Time Input')
     return [0,0,0,0];
   }
   let days = Math.trunc((timeDiff / 86400000));

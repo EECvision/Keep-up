@@ -3,33 +3,33 @@ import React from 'react';
 function MapForm(props){
 
     const task = {
-        'A': 'Add new',
-        'M': 'Manange'
+        'A': 'Task',
+        'M': 'Edit'
     }
 
     return (
         <div className="form-container">
         <form>
-            <div className="name-section">
-            <h5 className='form-header'>{task[props.text]}</h5>
-            <label> 
-                Name
-            </label>
-            <input value={props.name} type="text" onChange={(e)=>props.setName(e.target.value)}></input>
+            <div className="name-section sect">
+            <h4 className='form-header'>{task[props.text]}</h4>
+                <div className="input-field">
+                    <label>Name</label>
+                    <input value={props.name} type="text" onChange={(e)=>props.setName(e.target.value)}></input>
+                </div>
             </div>
-            <div className="time-section">
-            <h5 className="form-header">Duration</h5>
-            <label>
-                Date
-            </label>
-            <input value={props.date} type="date" onChange={(e)=>props.setDate(e.target.value)}></input>
-            <label><br/>
-                Time
-            </label>
-            <input value={props.time} type="time" onChange={(e)=>props.setTime(e.target.value)}></input>
+            <div className="time-section sect">
+            <h4 className="form-header">Due By</h4>
+                <div className="input-field">
+                    <label>Date</label>
+                    <input value={props.date} type="date" onChange={(e)=>props.setDate(e.target.value)}></input>
+                </div>
+                <div className="input-field">
+                    <label>Time</label>
+                    <input value={props.time} type="time" onChange={(e)=>props.setTime(e.target.value)}></input>
+                </div>
             </div>
         </form>
-        <div className="update-section">
+        <div className="button-section">
             <button onClick={()=>props.onSave(props.id,props.name,props.time,props.date)}>Save</button>
             <button onClick={props.onCancel}>Cancel</button>
             {props.deleteButton}
