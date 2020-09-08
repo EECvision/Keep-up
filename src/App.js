@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import Form from './components/Form.js'
 import Task from './components/Task.js'
+import firebase from 'firebase';
 
 export default function App(){
 
@@ -11,6 +12,23 @@ export default function App(){
   const [date,setDate] = useState('');
   const [name,setName] = useState('');
   const [id,setId] = useState(Date.now());
+
+  useEffect(()=>{
+    firebase.database().ref('todos').on('value', (snapshot) => {
+      const vals = snapshot.val();
+      let _records = [];
+      for(var key in vals){
+          _records.push({
+              ...vals[key],
+              period:[],
+              id:key
+          });
+      }
+      console.log(_records);
+      setTasks(_records)
+    });
+  },[])
+
 
   const showForm=()=>{
     setRenderForm(true)
@@ -38,9 +56,12 @@ export default function App(){
         time:time,
         period:[]
       }
-  
+
       if(formStatus){
         setTasks([...tasks,newTask])
+          firebase.database().ref('todos').push().set({
+            ...newTask
+          })
       } else{
           const managedTask = tasks.map(task=>{
             if(task.id===id){
@@ -49,7 +70,11 @@ export default function App(){
             return task
           })
           setTasks(managedTask)
+            firebase.database().ref(`todos/${id}`).set({
+              ...newTask
+            })
         }
+
       setRenderForm(false)
       setFormStatus(true)
       setDate('')
@@ -72,6 +97,9 @@ export default function App(){
   const deleteTask=(id)=>{
     const remainingTasks = tasks.filter(task=>task.id !== id )
     setTasks(remainingTasks);
+    const rootRef = firebase.database().ref().child('todos');
+    rootRef.child(id).remove();
+
     setRenderForm(false)
     setDate('')
     setName('')
@@ -125,15 +153,18 @@ export default function App(){
   :
   null;
 
-  const taskList= tasks.map((task)=>(
-    <Task
+  const taskList= tasks.map((task)=>{
+    if(task===null){
+      return null
+    }
+    return <Task
     id = {task.id}
     key={task.id}
     name={task.name}
     period={task.period}
     manageTask={manageTask}
     />
-  ));
+  });
 
 
   return(
@@ -155,8 +186,6 @@ export default function App(){
   )
 }
 
-
-// ----------------------------------------------------------------------
 
 function userDate(date,time){
   let fullDate = [date,time]
@@ -183,10 +212,3 @@ function dateDiff(userDate,currentDate){
   let secs = Math.trunc((((timeDiff % 86400000) % 3600000) % 60000) / 1000);
     return [days, hours, mins, secs];
 }
-
-
-
-
-
-
-// ----------------------------------------------------------------------

@@ -17,19 +17,19 @@ export default function Task(props){
                 <div className="event-time">
                     <div className="event-item">
                         <div>{props.period[0]}</div>
-                        <div>DD</div>
+                        <div>DAY</div>
                     </div>
                     <div className="event-item">
                         <div>{props.period[1]}</div>
-                        <div>HH</div>
+                        <div>HRS</div>
                     </div>
                     <div className="event-item">
                         <div>{props.period[2]}</div>
-                        <div>MM</div>
+                        <div>MIN</div>
                     </div>
                     <div className="event-item">
                         <div>{props.period[3]}</div>
-                        <div>SS</div>
+                        <div>SEC</div>
                     </div>
                 </div>
             </div>
