@@ -6,14 +6,13 @@ import firebase from 'firebase'
 
   // web app's Firebase configuration
   var firebaseConfig = {
-    apiKey: "AIzaSyDkSkoxoTRYIBW38ajxXFcvnJtuv6BaEmY",
-    authDomain: "todo-461d0.firebaseapp.com",
-    databaseURL: "https://todo-461d0.firebaseio.com",
-    projectId: "todo-461d0",
-    storageBucket: "todo-461d0.appspot.com",
-    messagingSenderId: "877108830246",
-    appId: "1:877108830246:web:5ec20077c98a4b70cb06e7",
-    measurementId: "G-TH5BTQ0JCJ"
+    apiKey: "AIzaSyDoBGEMcIJOKjEtnu2i0aej4eVIqP1k2Sw",
+    authDomain: "keepup-6f041.firebaseapp.com",
+    projectId: "keepup-6f041",
+    storageBucket: "keepup-6f041.appspot.com",
+    messagingSenderId: "794645941978",
+    appId: "1:794645941978:web:044edf42c16b69fb535fe3",
+    measurementId: "G-X9FT4510H4"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
