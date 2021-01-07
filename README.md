@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# `Project description`
+This project was built to demonstrate the use of react | javascript | css | firebase to create an <br/>
+application and perform some crude operations and storage on it.
+
 ## Available Scripts
 
 In the project directory, you can run:
